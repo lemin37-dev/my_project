@@ -2,10 +2,12 @@
 # 1. 모듈 가져오기
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 # 2. fastapi 객체 생성
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static") # 정적데이터 경로 설정
 
 # 3. 라우팅 구성
 @app.get("/")
