@@ -16,3 +16,14 @@ jobs:
       # 1. source checkout
       - name: 코드 checkout 
         uses: actions/checkout@v3
+
+      # 환경변수 파일 생성(생략)
+      
+      # 2. 확인 or 단위테스트
+      - name: 확인 검증
+        # 여러 명령어 작동 시 `-`를 통해 배치
+        run:
+          pwd
+          ls -al
+          cat main.py
+        shell: bash
