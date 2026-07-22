@@ -22,7 +22,7 @@ jobs:
       # 2. 확인 or 단위테스트
       - name: 확인 검증
         # 여러 명령어 작동 시 `-`를 통해 배치
-        run:
+        run:  |
           pwd
           ls -al
           cat main.py
