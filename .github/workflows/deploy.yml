@@ -1,0 +1,18 @@
+name: Push 기반 CI/CD 테스트
+
+# 트리거 지점, CI/CD가 작동되는 원인, 이벤트 등 정의
+# main branch에서 push 이벤트가 발생되면 아래 설정한 내용대로 작동
+on:
+  push:
+    branches:
+      - main
+
+# 개별 작업(jobs)을 순서대로 나열(파이프라인)
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    # 작업단계지정
+    steps:
+      # 1. source checkout
+      - name: 코드 checkout 
+        uses: actions/checkout@v3
