@@ -13,13 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     # 작업단계지정
     steps:
-      # 1. source checkout
+      # Source Checkout
       - name: 코드 checkout 
         uses: actions/checkout@v3
 
       # 환경변수 파일 생성(생략)
       
-      # 2. 확인 or 단위테스트
+      # 확인 or 단위테스트
       - name: 확인 검증
         # 여러 명령어 작동 시 `-`를 통해 배치
         run:  |
@@ -27,3 +27,16 @@ jobs:
           ls -al
           cat main.py
         shell: bash
+      
+      # CI 서버 -> EC2 서버로 배포(SSH)
+      # AWS에서 EC2 생성 -> ip/domain, ubuntu(사용자명), key(.pem)
+      # Github Repository의 secrets 변수로 위의 3개 값 세팅
+      - name: Source copy to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.EC2_KEY }}
+          port: 22
+          source: .
+          target: "/home/ubuntu/projects/"
