@@ -22,3 +22,7 @@ def home(req:Request):
 @app.get("/auth/login")
 def login(req:Request):
     return templates.TemplateResponse(req, "login.html")
+
+@app.get("/auth/login/v2")
+def login(req:Request):
+    return templates.TemplateResponse(req, "login-v2.html")
