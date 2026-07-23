@@ -28,6 +28,7 @@ jobs:
           cat main.py
         shell: bash
       
+      # [CD 작업 시작]
       # CI 서버 -> EC2 서버로 배포(SSH)
       # AWS에서 EC2 생성 -> ip/domain, ubuntu(사용자명), key(.pem)
       # Github Repository의 secrets 변수로 위의 3개 값 세팅
@@ -37,7 +38,21 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.EC2_KEY }}
+          key: ${{ secrets.EC2_KEY }}
           port: 22
           source: .
           target: "/home/ubuntu/projects/"
+      
+      # 서비스 재가동
+      - name: Run Script And Service Restart
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          port: 22
+          scripts: |
+            #cd /home/ubuntu/projects  #1. 프로젝트 폴더 위치로 이동
+            #./web/bin/pip install -r requirements.txt   # 2 필요 패키지 설치
+            sudo systemctl restart hello.service  # 3. 서비스 재시작
+
