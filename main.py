@@ -17,3 +17,8 @@ def home(req:Request):
     # > 응답
     # > 브라우저 화면 구성
     return templates.TemplateResponse(req, "index.html")
+
+
+@app.get("/auth/login")
+def login(req:Request):
+    return templates.TemplateResponse(req, "login.html")
