@@ -31,6 +31,7 @@ jobs:
       # CI 서버 -> EC2 서버로 배포(SSH)
       # AWS에서 EC2 생성 -> ip/domain, ubuntu(사용자명), key(.pem)
       # Github Repository의 secrets 변수로 위의 3개 값 세팅
+      # SSH Port를 모든 IP 접근 가능하도록 개방
       - name: Source copy to EC2
         uses: appleboy/scp-action@master
         with:
