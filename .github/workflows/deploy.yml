@@ -60,7 +60,8 @@ jobs:
       # Docker Compose 명령어 실행
       - name: Docker Compose Build
         run: |
-          docker-compose up -d
+          docker compose down
+          docker compose up -d
         shell: bash
 
 
