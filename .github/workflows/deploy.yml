@@ -45,6 +45,8 @@ jobs:
   # EC2에 docker-compose.yml 설정파일 copy
   # docker-compose ssh 명령어 실행
   cd:
+    # ci 작업이 완료된 후 진행
+    needs : ci
     runs-on: ubuntu-latest
     steps:
       # 파일복사
