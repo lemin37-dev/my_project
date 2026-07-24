@@ -65,7 +65,7 @@ jobs:
       # Docker Compose 명령어 실행
       - name: Docker Compose Build
         run: |
-          cd ~/projects  # 필요시 .env 파일생성(생략)
+          cd /home/ubuntu/projects  # 필요시 .env 파일생성(생략)
           docker compose pull   # 최신 이미지 가져오기
           docker compose up -d  # 신규 & 교체 작업
           docker image prune -f # 이미지 버전 업 시 기존 이미지 삭제        
