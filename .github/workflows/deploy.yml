@@ -42,5 +42,22 @@ jobs:
 
   
   # EC2에 docker-compose.yml, 설정파일등 copy, 도커컴포즈 작동
-  #cd:
+  # EC2에 docker-compose.yml 설정파일 copy
+  # docker-compose ssh 명령어 실행
+  cd:
+    runs-on:  ubuntu-latest
+    steps:
+        # 파일복사
+        - name: Docker Compose File Setup
+          uses: docker/build-push-action@v4
+          with:
+            context: .
+            file: ./docker-compose.yml
+            push: true
+        # Docker Compose 명령어 실행
+        - name: Docker Compose Build
+          run: |
+            docker-compose up -d
+
+
     
