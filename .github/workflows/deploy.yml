@@ -63,18 +63,23 @@ jobs:
           source: ./docker-compose.yml
           target: "/home/ubuntu/"
       # Docker Compose 명령어 실행
-      - name: Docker Compose Build
-        run: |
-          # 필요시 .env 파일생성(생략)
-          cd /home/ubuntu/projects
-          # 최신 이미지 가져오기
-          docker compose pull
-          # 신규 & 교체 작업 
-          docker compose up -d
-          # 이미지 버전 업 시 기존 이미지 삭제        
-          docker image prune -f 
-        shell: bash
-
+      - name: Run Script And Service Restart
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          port: 22
+          script: |
+            # 작업 디렉토리 이동 (docker-compose.yml 존재하는 위치)
+            cd /home/ubuntu
+            # 필요시 .env 생성 -> 시크릿 변수 읽어서 파일 처리 (여기서는 생략)
+            # 최신 이미지 가져오기
+            docker-compose pull
+            # 컨테이너 구성 -> 신규 혹은 교체 등 
+            docker-compose up -d
+            # 이미지가 최신으로 교체되면 기존것 가비지가 되서 공간만 차지함
+            docker image prune -f
 
 
     
