@@ -45,22 +45,24 @@ jobs:
   # EC2에 docker-compose.yml 설정파일 copy
   # docker-compose ssh 명령어 실행
   cd:
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-        # 파일복사
-        - name: Docker Compose File Setup
-          uses: appleboy/scp-action@master
-          with:
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.USERNAME }}
-            key: ${{ secrets.EC2_KEY }}
-            port: 22
-            source: ./docker-compose.yml
-            target: "/home/ubuntu/projects/docker-compose.yml"
-        # Docker Compose 명령어 실행
-        - name: Docker Compose Build
-          run: |
-            docker-compose up -d
+      # 파일복사
+      - name: Docker Compose File Setup
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          port: 22
+          source: ./*.yml
+          target: "/home/ubuntu/projects/"
+      # Docker Compose 명령어 실행
+      - name: Docker Compose Build
+        run: |
+          docker-compose up -d
+        shell: bash
+
 
 
     
